@@ -8,26 +8,26 @@ import { CrmProvider } from '@src/shared/providers/crmProvider/crm.provider';
 ConfigModule.forRoot();
 
 @Processor(process.env.VEHICLE_QUEUE as string)
-export class CreateVehicleProcessor {
+export class UpdateVehicleProcessor {
   constructor(private readonly crmProvider: CrmProvider) {}
 
-  private readonly logger = new Logger(CreateVehicleProcessor.name);
+  private readonly logger = new Logger(UpdateVehicleProcessor.name);
 
-  @Process(EventsEnum.CREATE)
-  async handleCreateVehicle(job: Job<VehicleEntity>) {
+  @Process(EventsEnum.UPDATE)
+  async handleUpdateVehicle(job: Job<VehicleEntity>) {
     const vehicle = job.data;
 
     this.logger.log(`Processing vehicle: ${vehicle.licensePlate}`);
 
-    await this.crmProvider.createVehicle(vehicle);
+    await this.crmProvider.updateVehicle(vehicle);
 
-    this.logger.log(`Vehicle: ${vehicle.licensePlate} saved to crm!`);
+    this.logger.log(`Vehicle: ${vehicle.licensePlate} updated to crm!`);
   }
 
-  @OnQueueFailed({ name: EventsEnum.CREATE })
+  @OnQueueFailed({ name: EventsEnum.UPDATE })
   handleError(error: Error) {
     this.logger.log(
-      `[${CreateVehicleProcessor.name}]: Failed to save vehicle data`,
+      `[${UpdateVehicleProcessor.name}]: Failed to update vehicle data`,
       error,
     );
   }

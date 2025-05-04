@@ -7,11 +7,12 @@ import {
   MaxLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { faker } from '@faker-js/faker';
 import { IsValidYearLength } from '@src/vehicles/decorators/is-valid-year.decorator';
 
 export class CreateVehicleDto {
   @ApiProperty({
-    example: 'JQL-1392',
+    example: faker.vehicle.vrm(),
   })
   @IsString()
   @IsNotEmpty()
@@ -21,7 +22,7 @@ export class CreateVehicleDto {
   licensePlate: string;
 
   @ApiProperty({
-    example: '9BWZZZ377PY123456',
+    example: faker.vehicle.vin(),
   })
   @IsString()
   @IsNotEmpty()
@@ -29,7 +30,7 @@ export class CreateVehicleDto {
   chassis: string;
 
   @ApiProperty({
-    example: '12536955160',
+    example: faker.string.alphanumeric({ length: 11 }).toUpperCase(),
   })
   @IsString()
   @IsNotEmpty()
@@ -37,7 +38,7 @@ export class CreateVehicleDto {
   renavam: string;
 
   @ApiProperty({
-    example: 'fortwo BRABUS coup',
+    example: faker.vehicle.model(),
   })
   @IsString()
   @IsNotEmpty()
@@ -45,7 +46,7 @@ export class CreateVehicleDto {
   model: string;
 
   @ApiProperty({
-    example: 'smart',
+    example: faker.vehicle.manufacturer(),
   })
   @IsString()
   @IsNotEmpty()

@@ -15,8 +15,16 @@ export class VehicleRepository {
     return this.vehicleRepository.findOne({ where: { id } });
   }
 
-  async createVehicle(vehicledto: CreateVehicleDto) {
-    return this.vehicleRepository.save(vehicledto);
+  async find(): Promise<VehicleEntity[] | null> {
+    return this.vehicleRepository.find();
+  }
+
+  async updateVehicle(vehicle: VehicleEntity) {
+    return this.vehicleRepository.save(vehicle);
+  }
+
+  async createVehicle(vehicleDto: CreateVehicleDto) {
+    return this.vehicleRepository.save(vehicleDto);
   }
 
   async deleteById(id: string) {
