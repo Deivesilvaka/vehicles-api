@@ -4,7 +4,7 @@ import packageJson from 'package.json';
 
 export const setupSwagger = (app: INestApplication) => {
   const options = new DocumentBuilder()
-    .setTitle('Vehicle-Backend Documentations')
+    .setTitle('Vehicle Backend Documentation')
     .setDescription('All API Endpoints')
     .setVersion(packageJson.version)
     .build();
